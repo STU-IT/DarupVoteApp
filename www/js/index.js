@@ -6,7 +6,7 @@ function prepareCategories(event, ui)
 {
     console.log("ready to load Categories");
 
-    $.get("grahn.dk/darup/vote.php",
+    $.get("http://grahn.dk/darup/vote.php",
         function(res, code) {
             console.debug(code + ": " + JSON.stringify(res));
 
@@ -25,11 +25,11 @@ function prepareCategories(event, ui)
                 }
                 // tilføj knapperne til DOM'en
 
-                $(newContent).appendTo('#seasons');
+                $(newContent).appendTo('#kategorier');
                 // lad JQM forbedre htmlen
-                $('#seasons').enhanceWithin();
+                $('#kategorier').enhanceWithin();
                 // tilføj event handler til hver knap
-                $('#seasons a').one('click', prepareSeason);
+                $('#kategorier a').one('click', prepareStem());
             }
 
         }
