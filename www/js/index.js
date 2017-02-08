@@ -32,11 +32,47 @@ function prepareStem(event, ui)
                     //     </div>
                     newContent +=
                         '<label>' +
-                        '<input type="radio" name="radio-choice-0" id=' + i +'>' + res[questionId].answers[i].answer +
+                        '<input type="radio" name="radio_choice" value="' + i +'">' + res[questionId].answers[i].answer +
                         '</label>';
                 }
+                //newContent += ""
                 $(newContent).appendTo("#radio")
                 $('#radio').enhanceWithin();
+
+                $('#radio input[type="radio"]').one('click', function(){
+                    answerID = this.value;
+                });
+
+
+                $('#stemKnap').one('click', function(){
+                    // indsamle alle data
+                    var postData = {};
+                    postData['action']              = 'polls';
+                    postData['view']                = 'process';
+                    postData['poll_id']             = questionId;
+                    postData['poll_' + questionId]  = answerID;
+                    postData['poll_' + questionId + '_nonce']  = res['poll_' + questionId + '_nonce']
+
+                    // send request
+                    /// min postData: {"action":"poll","view":"process","poll_id":2,"poll_2":"10","poll_2_nonce":"ef888dbe6c"}
+                    /// din postData: {"action":"polls","view":"process","poll_id":"2","poll_2":"8","poll_2_nonce":"ef888dbe6c"}
+                    $.post('http://grahn.dk/darup/wp-admin/admin-ajax.php', postData,
+                        function(returnData, code){
+                            console.log('Du har stemt');
+
+                            console.log('postData: ' + JSON.stringify(postData));
+
+                            console.log('postRes: ' + JSON.stringify(returnData));
+                            console.log('postRes: ' + JSON.parse(returnData));
+                            console.log(code + ': ' + returnData);
+                        }
+                    ).fail(function () {
+                        console.log('Det virkede ikke')
+                    }).always(function () {
+                        console.log('Du har forsøgt at stemme... :-)')
+                    });
+                    // henvise til resultat
+                });
             }
         }
     )
