@@ -2,42 +2,37 @@ var questionId;
 
 function prepareStem(event, ui)
 {
+
+    function successHandlerFactory(questionId)
+    {
+        function successHandler(res, code)
+        {
+            console.debug(code + ": " + JSON.stringify(res));
+            // check lige om indholdes er bare lidt i orden...
+            if (res.error.msg == '' && res[questionId] != undefined && res[questionId].answers != undefined) {
+                // fjern 'gamle' knapper'er
+                $('#radio *').remove();
+                var newContent = '';
+                // gennemløb alle svar til spørgsmål
+                for (var i in res[questionId].answers) {
+                    newContent +=
+                        '<label>' +
+                        '<input type="radio" name="radio-choice-0" id=' + i + '>' + res[questionId].answers[i].answer +
+                        '</label>';
+                }
+                $(newContent).appendTo("#radio")
+                $('#radio').enhanceWithin();
+            }
+        }
+
+        return successHandler
+    }
+
     questionId = this.dataset.id;
     $.get
     (
         'http://grahn.dk/darup/vote.php?qid=' + questionId,
-        function(questionId) {
-            return function (res, code) {
-                //console.debug(code + ": " + JSON.stringify(res));
-
-                // check lige om indholdes er bare lidt i orden...
-                if (res[questionId].answers) {
-                    // fjern 'gamle' knapper'er
-                    $('#radio *').remove();
-                    var newContent = '';
-                    // gennemløb alle afsnit i Items
-
-                    // res[questionID].question
-
-                    for (var i in res[questionId].answers) {
-                        // lav en ny "div" for hver sæson
-                        // <div>
-                        //     <a href="#episodeDetails">
-                        //         <img src="xxx">
-                        //         <h2>2 3-10</h2>
-                        //     <h2>Jonas kysser Eva, men Noora ser det hele</h2>
-                        //     </a>
-                        //     </div>
-                        newContent +=
-                            '<label>' +
-                            '<input type="radio" name="radio-choice-0" id=' + i + '>' + res[questionId].answers[i].answer +
-                            '</label>';
-                    }
-                    $(newContent).appendTo("#radio")
-                    $('#radio').enhanceWithin();
-                }
-            }
-        }(questionId)
+        successHandlerFactory(questionId)
     )
 }
 
@@ -52,7 +47,7 @@ function prepareCategories(event, ui)
             console.debug(code + ": " + JSON.stringify(res));
 
             // check lige om indholdes er bare lidt i orden...
-            if (res.questions)
+            if (res.error.msg == '' && res.questions != undefined)
             {
                 // fjern 'gamle' knapper
                 $('#kategorier a').remove();
