@@ -17,11 +17,42 @@ function prepareStem(event, ui)
                 for (var i in res[questionId].answers) {
                     newContent +=
                         '<label>' +
-                        '<input type="radio" name="radio-choice-0" id=' + i + '>' + res[questionId].answers[i].answer +
+                        '<input type="radio" name="radio_choice" value="' + i +'">' + res[questionId].answers[i].answer +
                         '</label>';
                 }
                 $(newContent).appendTo("#radio")
                 $('#radio').enhanceWithin();
+
+                $('#radio input[type="radio"]').one('click', function(){
+                    answerID = this.value;
+                });
+
+
+                $('#stemKnap').one('click', function(){
+                    // indsamle alle data
+                    var postData = {};
+                    postData['action']              = 'polls';
+                    postData['view']                = 'process';
+                    postData['poll_id']             = questionId;
+                    postData['poll_' + questionId]  = answerID;
+                    postData['poll_' + questionId + '_nonce']  = res['poll_' + questionId + '_nonce']
+
+                    // send request
+                    /// min postData: {"action":"poll","view":"process","poll_id":2,"poll_2":"10","poll_2_nonce":"ef888dbe6c"}
+                    /// din postData: {"action":"polls","view":"process","poll_id":"2","poll_2":"8","poll_2_nonce":"ef888dbe6c"}
+                    $.post('http://grahn.dk/darup/wp-admin/admin-ajax.php', postData,
+                        function(returnData, code){
+                            console.log('Du har stemt');
+                            console.log('postData: ' + JSON.stringify(postData));
+                            console.log(code + ': ' + returnData);
+                            // henvise til resultat
+                            $('#resultater')[0].innerHTML = returnData;
+                        }
+                    ).fail(function (returnData, code) {
+                        console.log('Det virkede ikke')
+                        console.log(code + ': ' + returnData);
+                    })
+                });
             }
         }
 
