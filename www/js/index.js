@@ -14,7 +14,7 @@ function prepareStem(event, ui)
             if ( res[questionId].answers)
             {
                 // fjern 'gamle' div'er
-                $('#stem label').remove();
+                $('#radio *').remove();
                 var newContent = '';
                 // gennemløb alle afsnit i Items
 
@@ -31,11 +31,12 @@ function prepareStem(event, ui)
                     //     </a>
                     //     </div>
                     newContent +=
-                        '<div><label>' +
-                        '<input type="radio" name="radio-choice-0" id=' + i +' class="custom">' + res[questionId].answers[i].answer +
-                        '</label></div>';
+                        '<label>' +
+                        '<input type="radio" name="radio-choice-0" id=' + i +'>' + res[questionId].answers[i].answer +
+                        '</label>';
                 }
-                $(newContent).appendTo("#stem")
+                $(newContent).appendTo("#radio")
+                $('#radio').enhanceWithin();
             }
         }
     )
