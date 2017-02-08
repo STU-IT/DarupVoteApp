@@ -86,8 +86,6 @@ $(document).ready( // når siden er loaded
                             break;
 
                         case "stem":
-                            // debug mockUp
-                            questionId = 2;
                             break;
 
                         case "forside":
