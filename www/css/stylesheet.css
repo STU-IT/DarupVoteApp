@@ -8,8 +8,12 @@
 }
 .footer-button-left {
     left: 0.4em;
+    transform: translate(-0%, -10%);
 }
 .footer-button-right {
-    right: 0.4em;
-
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%, -10%);
+    bottom:0.24em;
 }
+a { color: inherit; }
