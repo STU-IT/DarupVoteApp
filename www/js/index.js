@@ -9,12 +9,14 @@ function prepareStem(event, ui)
         {
             console.debug(code + ": " + JSON.stringify(res));
             // check lige om indholdes er bare lidt i orden...
-            if (res.error.msg == '' && res[questionId] != undefined && res[questionId].answers != undefined) {
+            if (res.error.msg == '' && res[questionId] != undefined && res[questionId].answers != undefined)
+            {
                 // fjern 'gamle' knapper'er
                 $('#radio *').remove();
                 var newContent = '';
                 // gennemløb alle svar til spørgsmål
-                for (var i in res[questionId].answers) {
+                for (var i in res[questionId].answers)
+                {
                     newContent +=
                         '<label>' +
                         '<input type="radio" name="radio_choice" value="' + i +'">' + res[questionId].answers[i].answer +
@@ -23,7 +25,8 @@ function prepareStem(event, ui)
                 $(newContent).appendTo("#radio")
                 $('#radio').enhanceWithin();
 
-                $('#radio input[type="radio"]').one('click', function(){
+                $('#radio input[type="radio"]').one('click', function()
+                {
                     answerID = this.value;
                 });
 
@@ -41,14 +44,80 @@ function prepareStem(event, ui)
                     /// min postData: {"action":"poll","view":"process","poll_id":2,"poll_2":"10","poll_2_nonce":"ef888dbe6c"}
                     /// din postData: {"action":"polls","view":"process","poll_id":"2","poll_2":"8","poll_2_nonce":"ef888dbe6c"}
                     $.post('http://grahn.dk/darup/wp-admin/admin-ajax.php', postData,
-                        function(returnData, code){
+                        function(returnData, code)
+                        {
                             console.log('Du har stemt');
                             console.log('postData: ' + JSON.stringify(postData));
                             console.log(code + ': ' + returnData);
                             // henvise til resultat
-                            $('#resultater')[0].innerHTML = returnData;
+                            //$('#resultater')[0].innerHTML = returnData;
+
+
+                            // Load the Visualization API and the corechart package.
+                            google.charts.load('current', {'packages':['corechart']});
+
+                            // Set a callback to run when the Google Visualization API is loaded.
+                            google.charts.setOnLoadCallback(drawChart);
+
+                            // Callback that creates and populates a data table,
+                            // instantiates the pie chart, passes in the data and
+                            // draws it.
+
+                            function drawChart()
+                            {
+                                var And = [];
+                                $.get
+                                (
+                                    "http://grahn.dk/darup/vote.php?qid=" + questionId,
+                                    function(res, code)
+                                    {
+
+                                        for (var i in res[questionId].answers)
+                                        {
+                                            //And [i]= res[questionId].answers[i].answer
+                                            And[And.length] =  [ res[questionId].answers[i].answer, parseInt(res[questionId].answers[i].votes) ];
+                                        }
+
+                                        // Create the data table.
+                                        var data = new google.visualization.DataTable();
+                                        data.addColumn('string', 'svar');
+                                        data.addColumn('number', 'stemmer');
+                                        data.addRows(And)
+                                        /*
+                                         ([
+                                         ['Mushrooms', 3],
+                                         ['Onions', 1],
+                                         ['Olives', 1],
+                                         ['Zucchini', 1],
+                                         ['Pepperoni', 2]
+                                         ]);
+                                         */
+
+
+                                        // Set chart options
+                                        var options =
+                                            {
+                                                'title':'How Much Pizza I Ate Last Night',
+                                                'width':400,
+                                                'height':300
+                                            };
+
+                                        // Instantiate and draw our chart, passing in some options.
+                                        var chart = new google.visualization.PieChart(document.getElementById('chart_div'));
+                                        chart.draw(data, options);
+
+                                    }
+                                );
+
+
+
+                            }
+                            //drawChart();
                         }
-                    ).fail(function (returnData, code) {
+                    ).fail
+                    (
+                        function (returnData, code)
+                    {
                         console.log('Det virkede ikke')
                         console.log(code + ': ' + returnData);
                     })
@@ -104,7 +173,8 @@ function prepareCategories(event, ui)
 }
 
 $(document).ready( // når siden er loaded
-    function(){
+    function()
+    {
         var pageContainer = $("body").pagecontainer({
             beforeshow:
                 function( event, ui){
