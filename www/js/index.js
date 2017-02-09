@@ -97,9 +97,11 @@ function prepareStem(event, ui)
                                         // Set chart options
                                         var options =
                                             {
-                                                'title':'How Much Pizza I Ate Last Night',
-                                                'width':400,
-                                                'height':300
+                                                'title':res[questionId].question,
+                                                //'width':300,
+                                                //'height':500
+                                                is3D: true,
+                                                //backgroundColor.fill: "#189adb"
                                             };
 
                                         // Instantiate and draw our chart, passing in some options.
