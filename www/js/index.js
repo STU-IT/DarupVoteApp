@@ -98,9 +98,11 @@ function prepareCategories(event, ui)
                 // tilføj event handler til hver knap
                 $('#kategorier a').one('click', prepareStem);
             }
-
         }
-    )
+    ).fail(function (res, code) {
+        console.debug(code + ': ' + res);
+    })
+
 }
 
 $(document).ready( // når siden er loaded
