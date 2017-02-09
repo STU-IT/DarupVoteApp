@@ -12,11 +12,19 @@
         <script src="js/index.js" ></script>
         <link rel="stylesheet" href="css/stylesheet.css">
 
+
+        <meta http-equiv="Content-Security-Policy"
+              content="default-src 'self' *;
+             style-src 'self' 'unsafe-inline';
+             script-src 'self' ;
+             connect-src *;
+             img-src * data:">
+
     </head>
     <body>
 
         <div data-role="header">
-            Hej i hovedet
+           loading
         </div>
 
         <section data-role="page" id="forside" style="background-color:#189adb">
@@ -43,7 +51,7 @@
         </section>
 
         <div data-role="footer">
-            <h2>Footer</h2>
+            <h2>footer</h2>
             <a href="#" class="ui-btn ui-corner-all ui-btn-inline ui-mini footer-button-left ui-btn-icon-left ui-icon-carat-l" data-rel="back">Back</a>
             <a href="#forside" class="ui-btn ui-corner-all ui-btn-inline ui-mini footer-button-right ui-btn-icon-right ui-icon-home ">Home</a>
         </div>
