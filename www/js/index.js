@@ -25,13 +25,15 @@ function prepareStem(event, ui)
                 $(newContent).appendTo("#radio")
                 $('#radio').enhanceWithin();
 
-                $('#radio input[type="radio"]').one('click', function()
+                $('#radio input[type="radio"]').one
+                ('click', function()
                 {
                     answerID = this.value;
                 });
 
 
-                $('#stemKnap').one('click', function(){
+                $('#stemKnap').one('click', function()
+                {
                     // indsamle alle data
                     var postData = {};
                     postData['action']              = 'polls';
@@ -83,15 +85,7 @@ function prepareStem(event, ui)
                                         data.addColumn('string', 'svar');
                                         data.addColumn('number', 'stemmer');
                                         data.addRows(And)
-                                        /*
-                                         ([
-                                         ['Mushrooms', 3],
-                                         ['Onions', 1],
-                                         ['Olives', 1],
-                                         ['Zucchini', 1],
-                                         ['Pepperoni', 2]
-                                         ]);
-                                         */
+
 
 
                                         // Set chart options
@@ -169,7 +163,6 @@ function prepareCategories(event, ui)
                 // tilføj event handler til hver knap
                 $('#kategorier a').one('click', prepareStem);
             }
-
         }
     )
 }
@@ -177,13 +170,16 @@ function prepareCategories(event, ui)
 $(document).ready( // når siden er loaded
     function()
     {
-        var pageContainer = $("body").pagecontainer({
+        var pageContainer = $("body").pagecontainer
+        ({
             beforeshow:
-                function( event, ui){
+                function( event, ui)
+                {
                     //hvilken side er vi ved at vise
                     console.log("beforeshow: " + ui.toPage[0].id);
 
-                    switch(ui.toPage[0].id) {
+                    switch(ui.toPage[0].id)
+                    {
                         case "kategorier":
                             prepareCategories(event, ui);
                             break;
