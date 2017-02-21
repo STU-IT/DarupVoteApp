@@ -104,9 +104,6 @@ function prepareStem(event, ui)
 
                                     }
                                 );
-
-
-
                             }
                             //drawChart();
                         }
@@ -194,3 +191,4 @@ $(document).ready( // når siden er loaded
         })
     }
 );
+
