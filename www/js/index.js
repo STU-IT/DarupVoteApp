@@ -176,6 +176,20 @@ function zoomIn()
     }
 }
 
+$(document).ready
+(function(){
+    var mc = new Hammer(document.getElementById('kortIma'));
+    mc.get('pan').set({ direction: Hammer.DIRECTION_ALL });
+
+    mc.on('pan', function(ev) {
+        //console.log(ev);
+    });
+
+    mc.on('pinch', function(ev) {
+        console.log(ev);
+    });
+})
+
 function zoomOut()
 {
     if(zoomLevel > 1)
