@@ -22,7 +22,7 @@ function prepareStem(event, ui)
                         '<input type="radio" name="radio_choice" value="' + i +'">' + res[questionId].answers[i].answer +
                         '</label>';
                 }
-                $(newContent).appendTo("#radio")
+                $(newContent).appendTo("#radio");
                 $('#radio').enhanceWithin();
 
                 $('#radio input[type="radio"]').one
@@ -84,7 +84,7 @@ function prepareStem(event, ui)
                                         var data = new google.visualization.DataTable();
                                         data.addColumn('string', 'svar');
                                         data.addColumn('number', 'stemmer');
-                                        data.addRows(And)
+                                        data.addRows(And);
 
 
 
@@ -94,7 +94,7 @@ function prepareStem(event, ui)
                                                 'title':res[questionId].question,
                                                 //'width':300,
                                                 //'height':500
-                                                is3D: true,
+                                                is3D: true
                                                 //backgroundColor.fill: "#189adb"
                                             };
 
@@ -164,17 +164,65 @@ function prepareCategories(event, ui)
     )
 }
 
-$(document).ready( // når siden er loaded
+var zoomLevel = 0.5;
+function zoomIn()
+{
+    if (zoomLevel < 3)
+    {
+        zoomLevel = zoomLevel + 0.1;
+        zoomLevel = Math.round(zoomLevel * 100) / 100;
+        document.getElementById("kortIma").style.transform = "scale(" + zoomLevel + ")";
+        console.log(zoomLevel)
+    }
+}
+
+function zoomOut()
+{
+    if(zoomLevel > 1)
+    {
+    zoomLevel = zoomLevel - 0.1;
+    zoomLevel = Math.round(zoomLevel * 100) / 100;
+    document.getElementById("kortIma").style.transform = "scale(" + zoomLevel + ")";
+    console.log(zoomLevel)
+    }
+}
+var dinX = 12.525;
+var dinY = 56.2;
+
+function geo()
+{
+    a = 1576 / (12.532064 - 12.518360);
+    pX = (dinX - 12.518360) * a;
+
+    b = 1374 / (56.621368 - 55.678093);
+    pY = (dinY - 55.678093) * b;
+
+
+    //newContent = '<area shape="circle" coords="' +  pX + "," + pY + "," + 2000 + '"href=#dig" alt="dig">';
+    newContent = '<img src="../ima/locator.png"  style="z-index: 50; position:absolute; opacity: 0.8;  left:' + (pX - 25) + "px" + '; top:' + (pY - 25) + "px" + '; width:50px; height:50px;">';
+
+    console.log(newContent);
+    $(newContent).appendTo('#kortIma');
+    // lad JQM forbedre htmlen
+    $('#kortIma').enhanceWithin();
+
+}
+
+// når siden er loaded
+$(document).ready
+(
+
     function()
     {
+
         var pageContainer = $("body").pagecontainer
         ({
             beforeshow:
+
                 function( event, ui)
                 {
                     //hvilken side er vi ved at vise
                     console.log("beforeshow: " + ui.toPage[0].id);
-
                     switch(ui.toPage[0].id)
                     {
                         case "kategorier":
@@ -186,9 +234,23 @@ $(document).ready( // når siden er loaded
 
                         case "forside":
                             break;
+
+                        case "pladsKort":
+                            geo();
+                            console.log(pX);
+                            console.log(pY);
+
+                            document.getElementById("kortIma").style.transform = "scale(" + zoomLevel + ")";
+
+                            $('#zoomIn').on('click', zoomIn);
+
+                            $('#zoomOut').on('click', zoomOut);
+                            break
                     }
                 }
         })
     }
+
 );
+
 

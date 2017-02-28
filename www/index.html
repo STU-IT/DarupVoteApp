@@ -26,10 +26,6 @@
 
         </section>
 
-        <section data-role="page" id="pladsKort" style="background-color:#189adb">
-
-        </section>
-
         <section data-role="page" id="kategorier" style="background-color:#189adb">
             <a href="#stem" data-role="button">Stem på mad</a>
             <a href="#stem" data-role="button">stem på musik</a>
@@ -46,9 +42,85 @@
 
         <section data-role="page" id="resultater" style="background-color:#189adb">
             <div id="chart_div" style="height: 100vw; width:100vw;"></div>
+        </section>
 
+        <section data-role="page" id="pladsKort" style="background-color:#189adb">
+            <button type="button" id="zoomIn" data-mini="true" data-inline="true" style="z-index: 100">+</button>
+            <button type="button" id="zoomOut" data-mini="true" data-inline="true" style="z-index: 100">-</button>
+
+            <div style="transform:scale(1); width:100vw; height:80vh;">
+            <div id="kortIma" style="">
+                <img src="ima/darupKort.png" usemap="#linkKort">
+            </div>
+            </div>
         </section>
 
         <script type="text/javascript" src="cordova.js"></script>
+
+    <map name="linkKort">
+        <!-- Scener -->
+        <area shape="rect" coords="357, 500, 439, 616" href="#tween" alt="tween">
+        <area shape="rect" coords="1208, 430, 1286, 546" href="#voksne" alt="voksne">
+        <area shape="rect" coords="788, 1026, 866, 1142" href="#born" alt="born">
+
+        <!-- shop -->
+        <area shape="circle" coords="274, 516, 47" href="#shop" alt="shop">
+        <area shape="circle" coords="1369, 580, 47" href="#shop" alt="shop">
+        <area shape="circle" coords="933, 1045, 47" href="#shop" alt="shop">
+
+        <!-- oplandning -->
+        <area shape="circle" coords="925, 440, 47" href="#energy" alt="energy">
+        <area shape="circle" coords="531, 547, 47" href="#energy" alt="energy">
+        <area shape="circle" coords="1245, 823, 47" href="#energy" alt="energy">
+        <area shape="circle" coords="685, 978, 47" href="#energy" alt="energy">
+
+        <!-- info -->
+        <area shape="circle" coords="291, 426, 47" href="#info" alt="info">
+        <area shape="circle" coords="1371, 499, 47" href="#info" alt="info">
+        <area shape="circle" coords="932, 1132, 47" href="#info" alt="info">
+
+        <!-- alckohol -->
+        <area shape="circle" coords="1328, 381, 47" href="#alkohol" alt="alkohol">
+        <area shape="circle" coords="1195, 743, 47" href="#alkohol" alt="alkohol">
+
+        <!-- sove pladser -->
+        <area shape="circle" coords="993, 143, 47" href="#camp" alt="camp">
+        <area shape="circle" coords="804, 339, 47" href="#camp" alt="camp">
+        <area shape="circle" coords="1051, 523, 47" href="#camp" alt="camp">
+        <area shape="circle" coords="791, 671, 47" href="#camp" alt="camp">
+
+        <!-- mad -->
+        <area shape="circle" coords="577, 431, 47" href="#mad" alt="mad">
+        <area shape="circle" coords="1166, 402, 47" href="#mad" alt="mad">
+        <area shape="circle" coords="607, 962, 47" href="#mad" alt="mad">
+        <area shape="circle" coords="1000, 946, 47" href="#mad" alt="mad">
+
+        <!-- wc -->
+        <area shape="circle" coords="977, 337, 47" href="#wc" alt="wc">
+        <area shape="circle" coords="433, 416, 47" href="#wc" alt="wc">
+        <area shape="circle" coords="1121, 805, 47" href="#wc" alt="wc">
+        <area shape="circle" coords="575, 855, 47" href="#wc" alt="wc">
+        <area shape="circle" coords="200, 1183, 47" href="#wc" alt="wc">
+
+        <!-- første hjælp -->
+        <area shape="circle" coords="301, 605, 47" href="#firstaid" alt="firstaid">
+        <area shape="circle" coords="811, 543, 47" href="#firstaid" alt="firstaid">
+        <area shape="circle" coords="1349, 645, 47" href="#firstaid" alt="firstaid">
+        <area shape="circle" coords="663, 877, 47" href="#firstaid" alt="firstaid">
+
+        <!-- zoo -->
+        <area shape="rect" coords="126, 974, 426, 1080" href="#zoo" alt="zoo">
+
+        <!-- legeplads -->
+        <area shape="circle" coords="501, 972, 47" href="#legeplads" alt="legeplads">
+    </map>
+<!--
+    <style>
+        #kortIma
+        {
+            transform: scale(0.5);
+        }
+    </style>
+-->
     </body>
 </html>
