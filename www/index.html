@@ -12,6 +12,7 @@
         <script src="lib/jquery.mobile-1.4.5.min.js"></script>
 
         <script src="lib/hammer.min.js" ></script>
+        <script src="lib/jquery.scrollTo.min.js" ></script>
 
         <script src="js/index.js" ></script>
 
@@ -50,7 +51,7 @@
             <button type="button" id="zoomIn" data-mini="true" data-inline="true" style="z-index: 100">+</button>
             <button type="button" id="zoomOut" data-mini="true" data-inline="true" style="z-index: 100">-</button>
 
-            <div style="transform:scale(1); width:100vw; height:80vh; overflow:scroll;">
+            <div id="container" style="transform:scale(1); width:100vw; height: calc(100vh - 48px); overflow:scroll;">
             <div id="kortIma" style="">
                 <img src="ima/darupKort.png" usemap="#linkKort">
             </div>
