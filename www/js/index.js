@@ -167,7 +167,7 @@ function prepareCategories(event, ui)
 var zoomLevel = 0.5;
 function zoomIn()
 {
-    if (zoomLevel < 3)
+    if (zoomLevel < 2)
     {
         zoomLevel = zoomLevel + 0.1;
         zoomLevel = Math.round(zoomLevel * 100) / 100;
@@ -176,7 +176,7 @@ function zoomIn()
     }
 }
 
-$(document).ready
+/*$(document).ready
 (function(){
     var mc = new Hammer(document.getElementById('kortIma'));
     mc.get('pan').set({ direction: Hammer.DIRECTION_ALL });
@@ -189,10 +189,10 @@ $(document).ready
         console.log(ev);
     });
 })
-
+**/
 function zoomOut()
 {
-    if(zoomLevel > 1)
+    if(zoomLevel > 0.5)
     {
     zoomLevel = zoomLevel - 0.1;
     zoomLevel = Math.round(zoomLevel * 100) / 100;
