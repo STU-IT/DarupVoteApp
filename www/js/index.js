@@ -167,7 +167,7 @@ function prepareCategories(event, ui)
 var zoomLevel = 0.5;
 function zoomIn()
 {
-    if (zoomLevel < 3)
+    if (zoomLevel < 2)
     {
         zoomLevel = zoomLevel + 0.1;
         zoomLevel = Math.round(zoomLevel * 100) / 100;
@@ -192,7 +192,7 @@ $(document).ready
 
 function zoomOut()
 {
-    if(zoomLevel > 1)
+    if(zoomLevel > 0.5)
     {
     zoomLevel = zoomLevel - 0.1;
     zoomLevel = Math.round(zoomLevel * 100) / 100;
