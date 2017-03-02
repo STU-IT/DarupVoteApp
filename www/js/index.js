@@ -259,7 +259,7 @@ $(document).ready
                             $('#zoomIn').on('click', zoomIn);
 
                             $('#zoomOut').on('click', zoomOut);
-                            break
+                            break;
                     }
                 }
         })
