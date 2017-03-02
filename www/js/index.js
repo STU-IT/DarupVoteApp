@@ -176,7 +176,7 @@ function zoomIn()
     }
 }
 
-$(document).ready
+/*$(document).ready
 (function(){
     var mc = new Hammer(document.getElementById('kortIma'));
     mc.get('pan').set({ direction: Hammer.DIRECTION_ALL });
@@ -189,7 +189,7 @@ $(document).ready
         console.log(ev);
     });
 })
-
+**/
 function zoomOut()
 {
     if(zoomLevel > 0.5)
