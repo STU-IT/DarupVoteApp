@@ -200,20 +200,64 @@ function zoomOut()
     console.log(zoomLevel)
     }
 }
-var dinX = 12.525;
-var dinY = 56.2;
 
-function geo()
+//$(document).ready
+//(
+    function geoPos()
+    {
+        window.setInterval(function()
+        {
+            if (navigator.geolocation)
+            {
+                navigator.geolocation.getCurrentPosition(function (position)
+                {
+                    //var pos = {
+                    //lat: position.coords.latitude,
+                    //lng: position.coords.longitude
+                    //};
+                    console.log(position.coords.latitude);
+                    console.log(position.coords.longitude);
+                    geo(position.coords.longitude, position.coords.latitude);
+                    //infoWindow.setPosition(pos);
+                    //infoWindow.setContent('Location found.');
+                    //map.setCenter(pos);
+                },
+                function ()
+                {
+                handleLocationError(true, infoWindow, map.getCenter());
+                });
+            }
+            else
+            {
+                // Browser doesn't support Geolocation
+                handleLocationError(false, infoWindow, map.getCenter());
+            }
+        }, 1000);
+    }
+//);
+
+function handleLocationError()
+{}
+
+//var dinX = 12.525;
+//var dinY = 56.2;
+
+function geo(dinX, dinY)
 {
+    $('#DOT').remove();
+    dinX += 0.0045873;
+    dinY -= 0.0071285;
     a = 1576 / (12.532064 - 12.518360);
     pX = (dinX - 12.518360) * a;
 
-    b = 1374 / (56.621368 - 55.678093);
+    b = -(1374 / (56.621368 - 55.678093));
     pY = (dinY - 55.678093) * b;
+    //pY = (dinY - 56.621368) * b;
 
-
+    console.log(pX);
+    console.log(pY);
     //newContent = '<area shape="circle" coords="' +  pX + "," + pY + "," + 2000 + '"href=#dig" alt="dig">';
-    newContent = '<img src="../ima/locator.png"  style="z-index: 50; position:absolute; opacity: 0.8;  left:' + (pX - 25) + "px" + '; top:' + (pY - 25) + "px" + '; width:50px; height:50px;">';
+    newContent = '<img src="/ima/locator.png" id="DOT" style="z-index: 50; position:absolute; opacity: 0.8;  left:' + (pX - 25) + "px" + '; top:' + (pY - 25) + "px" + '; width:50px; height:50px;">';
 
     console.log(newContent);
     $(newContent).appendTo('#kortIma');
@@ -250,9 +294,9 @@ $(document).ready
                             break;
 
                         case "pladsKort":
-                            geo();
-                            console.log(pX);
-                            console.log(pY);
+                            geoPos();
+                            //console.log(pX);
+                            //console.log(pY);
 
                             document.getElementById("kortIma").style.transform = "scale(" + zoomLevel + ")";
 
