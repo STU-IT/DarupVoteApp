@@ -259,7 +259,14 @@ $(document).ready
                             $('#zoomIn').on('click', zoomIn);
 
                             $('#zoomOut').on('click', zoomOut);
-                            break;
+
+                            //$("#container").scrollTo({left:"500px", top:"500px"});
+                            $("#container").scrollTo(500, 600);
+                            //window.scrollTo(500, 500);
+
+                            console.log("scrolled?")
+
+                            break
                     }
                 }
         })
