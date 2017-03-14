@@ -224,13 +224,13 @@ function zoomOut()
                 },
                 function ()
                 {
-                handleLocationError(true, infoWindow, map.getCenter());
+                handleLocationError(true, map.getCenter());
                 });
             }
             else
             {
                 // Browser doesn't support Geolocation
-                handleLocationError(false, infoWindow, map.getCenter());
+                handleLocationError(false, map.getCenter());
             }
         }, 1000);
     }
@@ -245,8 +245,11 @@ function handleLocationError()
 function geo(dinX, dinY)
 {
     $('#DOT').remove();
-    dinX += 0.0045873;
-    dinY -= 0.0071285;
+
+    // transponerer koordinater fra TEC til parken
+    //    dinX += 0.0045873;
+    //    dinY -= 0.0071285;
+
     a = 1576 / (12.532064 - 12.518360);
     pX = (dinX - 12.518360) * a;
 
