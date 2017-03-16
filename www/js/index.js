@@ -194,10 +194,10 @@ function zoomOut()
 {
     if(zoomLevel > 0.5)
     {
-    zoomLevel = zoomLevel - 0.1;
-    zoomLevel = Math.round(zoomLevel * 100) / 100;
-    document.getElementById("kortIma").style.transform = "scale(" + zoomLevel + ")";
-    console.log(zoomLevel)
+        zoomLevel = zoomLevel - 0.1;
+        zoomLevel = Math.round(zoomLevel * 100) / 100;
+        document.getElementById("kortIma").style.transform = "scale(" + zoomLevel + ")";
+        console.log(zoomLevel)
     }
 }
 
@@ -224,7 +224,7 @@ function zoomOut()
                 },
                 function ()
                 {
-                handleLocationError(true, map.getCenter());
+                    handleLocationError(true, map.getCenter());
                 });
             }
             else
@@ -268,11 +268,53 @@ function geo(dinX, dinY)
     $('#kortIma').enhanceWithin();
 
 }
+new Date($.now());
+var dt = new Date();
+var time = dt.getHours() + ":" + dt.getMinutes() + ":" + dt.getSeconds();
+
+var sceneVal;
+
+
+function prepareScene(event, ui)
+{
+    var dateTimeNow = new Date();
+    $.get
+    (
+        "http://grahn.dk/darup/wp-json/ee/v4.8.36/events" +
+        "?include=Venue&where[Venue.VNU_name]=" + encodeURI(sceneVal) +
+        "&include=Datetime&where[Datetime.DTT_EVT_end][]=%3E&where[Datetime.DTT_EVT_end][]=" + dateTimeNow.toISOString()
+        //"2017-04-01T18:45:14"
+        //Voksen%20Scenen
+        , function (res, code)
+        {
+            $("#scene *").remove();
+            if(res.length > 0)
+            {
+                var newContent = "<div id='program'><table width='100%'>";
+                for(var i in res)
+                {
+                    var start = new Date(res[i].datetimes[0].DTT_EVT_start);
+                    newContent += '<tr><td><h1>' + res[i].EVT_name + '</h1></td><td style="text-align: right"><h2>' + start.getHours() + ":" + start.getMinutes() + '</h2></td></tr>';
+                }
+                newContent += "</table></div>";
+                $(newContent).appendTo('#scene');
+                // lad JQM forbedre htmlen
+                $('#scene').enhanceWithin();
+            }
+            console.log('SceneData: ' + JSON.stringify(res));
+            console.log(res[0].EVT_name)
+            var start = new Date(res[0].datetimes[0].DTT_EVT_start);
+            console.log("Kl " + start.getHours() + ":" + start.getMinutes())
+            console.log("iso Kl " + start.toISOString())
+            console.log("utc Kl " + start.toUTCString())
+            console.log("lokal Kl " + start.toLocaleTimeString())
+        }
+    )
+}
 
 // når siden er loaded
 $(document).ready
 (
-
     function()
     {
 
@@ -311,14 +353,14 @@ $(document).ready
                             $("#container").scrollTo(500, 600);
                             //window.scrollTo(500, 500);
 
-                            console.log("scrolled?")
+                            console.log("scrolled?");
 
-                            break
+                            break;
+                        case "scene":
+                            prepareScene(event, ui);
+                            break;
                     }
                 }
         })
     }
-
 );
-
-
