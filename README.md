@@ -1,14 +1,11 @@
-# A Blank PhoneGap App
+# En knap så blank længere...
 
-## Usage
+## Bla bl bla
 
-### PhoneGap CLI
 
-    $ phonegap create my-app --template blank
+## Events
 
-### Desktop
+Se espresso events på: [https://eventespresso.com/](https://eventespresso.com/) bemærk vi bruger decaf udgaven, som er gratis!
 
-In your browser, open the file:
-
-    /www/index.html
-
+REST API på: [http://grahn.dk/darup/wp-json/ee/v4.8.36](http://grahn.dk/darup/wp-json/ee/v4.8.36)
+DEMO: [https://github.com/eventespresso/eea-rest-api-client/blob/master/standalone-scripts/ee-list-events.php](https://github.com/eventespresso/eea-rest-api-client/blob/master/standalone-scripts/ee-list-events.php)
