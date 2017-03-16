@@ -294,7 +294,12 @@ function prepareScene(event, ui)
                 for(var i in res)
                 {
                     var start = new Date(res[i].datetimes[0].DTT_EVT_start);
-                    newContent += '<tr><td><h1>' + res[i].EVT_name + '</h1></td><td style="text-align: right"><h2>' + start.getHours() + ":" + start.getMinutes() + '</h2></td></tr>';
+                    var minut = start.getMinutes()
+                    if (start.getMinutes() < 10)
+                    {
+                        minut = "0" + minut
+                    }
+                    newContent += '<tr><td><h1>' + res[i].EVT_name + '</h1></td><td style="text-align: right"><h2>' + start.getHours() + ":" + minut + '</h2></td></tr>';
                 }
                 newContent += "</table></div>";
                 $(newContent).appendTo('#scene');
